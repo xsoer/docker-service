@@ -1,0 +1,74 @@
+version: '3.7'
+
+services:
+  mysql:
+    image: mysql:5.7
+    user: 1001:1001
+    init: true
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=dev
+      - MYSQL_PASSWORD=dev
+      - MYSQL_DATABASE=dev
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+    expose:
+      - 3306
+    ports:
+        - "13306:3306"
+
+  mongodb:
+    # login database with root/root
+    image: mongo:4.0
+    user: 1001:1001
+    init: true
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
+    volumes:
+      - ./data/mongo:/data/db
+    expose:
+      - 27017
+    ports:
+        - "37017:27017"
+
+  neo4j:
+    # login database with neo4j/secret
+    image: neo4j:3.5.3
+    user: 1001:1001
+    # init: true   # neo4j use tini
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - NEO4J_AUTH=neo4j/secret
+    volumes:
+      - ./data/neo4j:/data
+    expose:
+      - 7474
+      - 7687
+    ports:
+       - "17474:7474"
+       - "17687:7687"
+
+  rabbitmq:
+    # login mq with guest/guest
+    image: rabbitmq:3.7.13-management
+    user: 1001:1001
+    init: true
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - RABBITMQ_ERLANG_COOKIE=mq_secret
+    volumes:
+      - ./data/mq:/var/lib/rabbitmq
+    expose:
+      - 5672
+      - 15672
+    ports:
+      - "15672:5672"
+      - "25672:15672"
+
