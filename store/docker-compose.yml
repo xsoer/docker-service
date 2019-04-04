@@ -34,7 +34,7 @@ services:
     expose:
       - 27017
     ports:
-        - "37017:27017"
+        - "27017:27017"
 
   neo4j:
     # login database with neo4j/secret
@@ -51,8 +51,8 @@ services:
       - 7474
       - 7687
     ports:
-       - "17474:7474"
-       - "17687:7687"
+       - "7474:7474"
+       - "7687:7687"
 
   rabbitmq:
     # login mq with guest/guest
@@ -69,6 +69,6 @@ services:
       - 5672
       - 15672
     ports:
-      - "15672:5672"
-      - "25672:15672"
+      - "5672:5672"
+      - "15672:15672"
 
