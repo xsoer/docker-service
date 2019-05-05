@@ -71,4 +71,20 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+    
+
+  redis:
+    image: redis:5.0.4
+    user: 1001:1001
+    init: true
+    restart: always
+    command: redis-server --requirepass 123456
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - ./data/redis:/data
+    expose:
+      - 6379
+    ports:
+      - "6379:6379"
 
